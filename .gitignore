@@ -1,0 +1,33 @@
+# Compiled class files
+*.class
+build/
+
+# Log files
+*.log
+
+# NetBeans specific
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# IDE specific files
+*.iml
+.idea/
+.vscode/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Database connection files (security)
+**/Conn.java
+
+# Backup files
+*.bak
+*.tmp
+
+# MySQL dump files (except our setup files)
+*.sql
+!database/*.sql

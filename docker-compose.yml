@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: electricity_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Pass@123
+      MYSQL_DATABASE: ebs
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d
+    networks:
+      - electricity_network
+
+  app:
+    build: .
+    container_name: electricity_app
+    depends_on:
+      - mysql
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=ebs
+      - DB_USER=root
+      - DB_PASSWORD=Pass@123
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    networks:
+      - electricity_network
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql_data:
+
+networks:
+  electricity_network:
+    driver: bridge
